@@ -38,8 +38,11 @@ exports.login = async (req, res) => {
   try {
     const { email, password } = req.body;
     const user = await User.findOne({ email });
-    if (!user || !(await bcrypt.compare(password, user.password))) {
-      return res.status(400).json({ message: "Invalid credentials" });
+    if (!user) {
+      return res.status(400).json({ error: "Email tidak terdaftar" });
+    }
+    if (!(await bcrypt.compare(password, user.password))) {
+      return res.status(400).json({ error: "Password salah" });
     }
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
       expiresIn: "1h",
@@ -49,6 +52,6 @@ exports.login = async (req, res) => {
     const user_id = user._id;
     res.status(200).json({ token, username, role, user_id });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({ error: error.message });
   }
 };
