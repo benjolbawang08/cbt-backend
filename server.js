@@ -12,7 +12,6 @@ connectDB();
 
 app.use(express.json());
 app.use(cors());
-
 app.use(express.urlencoded({ extended: true }));
 
 app.get("/", (req, res) => {
@@ -24,5 +23,5 @@ app.use("/api/users", userRoutes);
 app.use("/api/questions", questionRoutes);
 app.use("/api/results", resultRoutes);
 
-// const PORT = process.env.PORT || 5000;
-// app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+// Jangan gunakan app.listen() di Vercel
+module.exports = app;
