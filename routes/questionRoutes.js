@@ -20,7 +20,7 @@ router.post("/create", authMiddleware, adminMiddleware, createQuestionSet);
 router.get("/all", authMiddleware, adminMiddleware, getAllQuestion);
 
 // Endpoint untuk mengambil soal berdasarkan kode
-router.get("/:code", getQuestionsByCode);
+router.get("/:code", authMiddleware, getQuestionsByCode);
 
 // Endpoint untuk update soal berdasarkan kode (admin)
 router.put("/:code", authMiddleware, adminMiddleware, updateQuestionSet);

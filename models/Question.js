@@ -22,7 +22,7 @@ const questionSchema = new mongoose.Schema(
       {
         questionId: {
           type: Number,
-          unique: false, // Ubah menjadi false
+          unique: false,
         },
         question: {
           type: String,
@@ -71,7 +71,6 @@ const questionSchema = new mongoose.Schema(
   }
 );
 
-// Middleware untuk menghasilkan questionId unik sebelum validasi
 questionSchema.pre("validate", function (next) {
   if (this.questions && this.questions.length > 0) {
     this.questions.forEach((question, index) => {
